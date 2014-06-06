@@ -1,20 +1,38 @@
 # depslib dependency file v1.0
-1401935704 source:c:\users\radzki\documents\confeitos\confeitos 1.0\main.c
+1402014186 source:c:\users\radzki\documents\confeitos\confeitos 1.0\main.c
 	<stdio.h>
 	<stdlib.h>
-	"funcoes.h"
-
-1401935626 source:c:\users\radzki\documents\confeitos\confeitos 1.0\funcoes.c
-	<stdio.h>
-	<stdlib.h>
-	"funcoes.h"
-
-1401935722 c:\users\radzki\documents\confeitos\confeitos 1.0\include\funcoes.h
 	<conio.h>
+	"funcoes.h"
+
+1402021230 source:c:\users\radzki\documents\confeitos\confeitos 1.0\funcoes.c
+	<stdio.h>
+	<stdlib.h>
+	"funcoes.h"
+
+1402020927 c:\users\radzki\documents\confeitos\confeitos 1.0\include\funcoes.h
 	<time.h>
 	<math.h>
+	<string.h>
+	<ctype.h>
 
 1401935626 c:\users\radzki\documents\confeitos\confeitos 1.0\funcoes.c
+	<stdio.h>
+	<stdlib.h>
+	"funcoes.h"
+
+1401980936 source:z:\confeitos\confeitos 1.0\main.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	"funcoes.h"
+
+1401980860 z:\confeitos\confeitos 1.0\include\funcoes.h
+	<time.h>
+	<math.h>
+	<string.h>
+
+1401981013 source:z:\confeitos\confeitos 1.0\funcoes.c
 	<stdio.h>
 	<stdlib.h>
 	"funcoes.h"
