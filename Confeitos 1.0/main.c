@@ -13,6 +13,7 @@ int main()
 //IMPRESSÃO DA MATRIZ
     imprimevetor();
 //LEITURA DAS COORDENADAS
+    printf("Pressione ENTER para comecar o jogo!\n");
     leitura();
 
     return 0;

@@ -3,9 +3,9 @@
 #include "funcoes.h"
 //VETOR COM AS LETRAS DOS "DOCES"
 int scan;
-char doce[5]=
+char doce[7]=
 {
-    'B', 'G', 'R', 'Y'
+    'B', 'G', 'R', 'Y', 'O', 'P'
 };
 char criavetor (void)
 {
@@ -16,7 +16,7 @@ char criavetor (void)
     {
         for (j=1; j<=P; j++)
         {
-            r = rand() % 4;
+            r = rand() % 6;
             tab[i][j]= doce[r];
         }
     }
@@ -24,8 +24,12 @@ char criavetor (void)
 }
 int leitura ()
 {
+    getchar();
     printf("Digite as coordenadas e o sentido para mover a peca. Ex: 8,0, DIR \n");
-    scanf("%d, %d, %s", &x,&y, sentido);
+    scan = scanf("%d, %d, %s", &x,&y, sentido);
+    if(scan!=3)
+        msg(1);
+    else
     mover(x, y, sentido);
     return 0;
 }
@@ -56,9 +60,9 @@ char imprimevetor(void)
     return 0;
 }
 
-char mover(int x, int y, char sentido[4])
+char mover(int x, int y, char sentido[6])
 {
-    if (strcmp(sentido, "DIR")== 0)
+    if (strcmpi(sentido, "dir")== 0)
     {
         if ((y+1)>9)
             m=1;
@@ -70,7 +74,7 @@ char mover(int x, int y, char sentido[4])
             tab[x][y] = confeito;
         }
     }
-    else if (strcmp(sentido, "ESQ")== 0)
+    else if (strcmpi(sentido, "ESQ")== 0)
     {
         if (y-1<1)
             m=1;
@@ -80,7 +84,7 @@ char mover(int x, int y, char sentido[4])
             tab[x][y-1]=tab[x][y];
         }
     }
-    else if (strcmp(sentido, "CIMA")== 0)
+    else if (strcmpi(sentido, "CIMA")== 0)
     {
         if (j-1<1)
             m=1;
@@ -90,7 +94,7 @@ char mover(int x, int y, char sentido[4])
             tab[x-1][y]=tab[x][y];
         }
     }
-    else if (strcmp(sentido, "BAIXO")== 0)
+    else if (strcmpi(sentido, "BAIXO")== 0)
     {
         if (j+1>9)
             m=1;
@@ -118,6 +122,7 @@ char msg(int m)
     {
         printf("Peca movida com sucesso!\n");
         imprimevetor();
+        leitura();
     }
     else if (m==3)
     {

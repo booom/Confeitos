@@ -1,6 +1,6 @@
 #include <time.h> //time();
 #include <math.h> // abs();
-#include <string.h>//strcmp();
+#include <string.h>//strcmpi(); O I É POR SER "CASE-INSENSITIVE"
 #include <ctype.h>//isdigit();
 #if defined(WINNT)
 #define CLEAR system("cls");
@@ -15,7 +15,7 @@ int i, j, r, x, y,m;
 char criavetor ();
 char imprimevetor();
 char tab[O][P];
-char sentido[4];
+char sentido[6];
 char msg();
 char lc();
 char mover();
