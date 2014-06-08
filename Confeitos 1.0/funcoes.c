@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include "funcoes.h"
 //VETOR COM AS LETRAS DOS "DOCES"
-int scan;
 char doce[7]=
 {
     'B', 'G', 'R', 'Y', 'O', 'P'
@@ -22,32 +21,43 @@ char criavetor (void)
     }
     return 0;
 }
-int leitura ()
+//LÊ AS COORDENADAS E RETORNA O VALOR INTEIRO DE SCAN
+int verifica ()
 {
     getchar();
-    printf("Digite as coordenadas e o sentido para mover a peca. Ex: 8,0, DIR \n");
+    printf("\nDigite as coordenadas e o sentido para mover a peca. Ex: 8,0, DIR \n");
     scan = scanf("%d, %d, %s", &x,&y, sentido);
-    if(scan!=3)
+    return scan;
+}
+//LÊ AS COORDENADAS E VERIFICA SE É VALIDO
+int leitura ()
+{
+    scan = verifica();
+    //PARÂMETROS PARA SER VÁLIDO
+    if(scan!=3 || x<=0 || y<=0)
         msg(1);
     else
-    mover(x, y, sentido);
+    {
+     mover(x, y, sentido);
+    }
+
     return 0;
 }
 
 //ESCREVE AS COORDENADAS AO REDOR DO VETOR
-char lc()
+int lc(void)
 {
     for (i=1; i<O; i++)
     {
-        char dig = (char)(((int)'0')+i); // PROCURAR NA INTERNET
-        tab[i][0] = dig;
-        tab[0][i] = dig;
+        char num = (char)(((int)'0')+i); // PROCURAR NA INTERNET
+        tab[i][0] = num;
+        tab[0][i] = num;
     }
-    tab[0][0] = 'X';
+    tab[0][0] = ' ';
     return 0;
 }
 //IMPRIME O VETOR NA TELA
-char imprimevetor(void)
+int imprimevetor(void)
 {
     for(i=0; i<O; i++)
     {
@@ -60,75 +70,96 @@ char imprimevetor(void)
     return 0;
 }
 
-char mover(int x, int y, char sentido[6])
+int mover(int x, int y, char sentido[6])
 {
     if (strcmpi(sentido, "dir")== 0)
     {
         if ((y+1)>9)
-            m=1;
+            msg(1);
         else
         {
-            m=0;
+            jogada(x,y+1);
             confeito = tab[x][y+1];
             tab[x][y+1] = tab[x][y];
             tab[x][y] = confeito;
         }
     }
-    else if (strcmpi(sentido, "ESQ")== 0)
+    else if (strcmpi(sentido, "esq")== 0)
     {
         if (y-1<1)
-            m=1;
+            msg(1);
         else
         {
-            m=0;
-            tab[x][y-1]=tab[x][y];
+            jogada(x,y-1);
+            confeito = tab[x][y-1];
+            tab[x][y-1] = tab[x][y];
+            tab[x][y] = confeito;
         }
     }
-    else if (strcmpi(sentido, "CIMA")== 0)
+    else if (strcmpi(sentido, "cima")== 0)
     {
-        if (j-1<1)
-            m=1;
+        if (x-1<1)
+            msg(1);
         else
         {
-            m=0;
-            tab[x-1][y]=tab[x][y];
+            jogada(x-1,y);
+            confeito = tab[x-1][y];
+            tab[x-1][y] = tab[x][y];
+            tab[x][y] = confeito;
         }
     }
-    else if (strcmpi(sentido, "BAIXO")== 0)
+    else if (strcmpi(sentido, "baixo")== 0)
     {
-        if (j+1>9)
-            m=1;
+        if (x+1>9)
+            msg(1);
         else
         {
-            m=0;
-            tab[x+1][y]=tab[x][y];
+            jogada(x+1,y);
+            confeito = tab[x+1][y];
+            tab[x+1][y] = tab[x][y];
+            tab[x][y] = confeito;
         }
     }
     else
-        m=1;
-    msg(m);
+        msg(1);
+
     return 0;
 }
-char msg(int m)
+int msg(int m)
 {
     if (m==1)
     {
         {
+            CLEAR
             printf("************ MOVIMENTO INVALIDO! TENTE NOVAMENTE: ************\n");
+            imprimevetor();
             leitura();
         }
     }
     else if (m==0)
     {
-        printf("Peca movida com sucesso!\n");
+        CLEAR
+        printf("********************* PECA MOVIDA COM SUCESSO! *******************\n");
         imprimevetor();
         leitura();
     }
     else if (m==3)
     {
+        CLEAR
         printf("****************** ERRO DE SINTAXE, TENTE NOVAMENTE!**************\n");
+        imprimevetor();
         leitura();
     }
     return 0;
-}
 
+}
+int jogada(int x, int y)
+    {
+        confeito = tab[x][y];
+        if (x==1) // PRIMEIRA LINHA
+        {
+            if(y>1 && y<9) //PODE VERIFICAR DIREITA, ESQUERDA, BAIXO
+                tab;
+        }
+        tab[x][y];
+    }

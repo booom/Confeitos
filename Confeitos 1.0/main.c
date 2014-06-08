@@ -10,10 +10,13 @@ int main()
     criavetor();
 //CRIA AS COORDENADAS LATERAIS DO TABULEIRO
     lc();
-//IMPRESSÃO DA MATRIZ
+    printf("*************************   Confeitos v1.0   ******************************\n");
+    printf("Pressione ENTER para imprimir o tabuleiro!\n");
+    getchar();
+    //IMPRESSÃO DA MATRIZ
     imprimevetor();
+    printf("Agora, pressione ENTER para inciar o jogo!\n");
 //LEITURA DAS COORDENADAS
-    printf("Pressione ENTER para comecar o jogo!\n");
     leitura();
 
     return 0;
