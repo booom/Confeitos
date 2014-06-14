@@ -266,38 +266,48 @@ int verificatripla()
 //VERIFICA A JOGADA
 int jogada(int x, int y, char sentido[6])
 {
-
-//DIREITA1
-    if (strcasecmp(sentido,"DIR")== 0 && tab[x][y] == tab[x][y+1] &&  tab[x][y] == tab[x][y+2])
+    if (tab[x][y] == tab[x][y-2] && tab[x][y] == tab[x][y-1] || tab[x][y+2] && tab[x][y] == tab[x][y+1] || tab[x][y] == tab[x+2][y] && tab[x][y] == tab[x+1][y] || tab[x][y] == tab[x-2][y] && tab[x][y] == tab[x-1][y] || tab[x][y] == tab[x-1][y] && tab[x][y] == tab[x+1][y] )
     {
+        i = y;
+        while (tab[x][y] == tab[x][i+1])
+        {
+        tab[x][i+1] = ' ';
+        i++;
+        }
+        i = y;
+        while (tab[x][y] == tab[x][i-1])
+        {
+        tab[x][i-1] = ' ';
+        i--;
+        }
+        i = x;
+        while (tab[x][y] == tab[i+1][y])
+        {
+        tab[i+1][y] = ' ';
+        i++;
+        }
+        i = x;
+        while (tab[x][y] == tab[i-1][y])
+        {
+        tab[i-1][y] = ' ';
+        i--;
+        }
         tab[x][y] = ' ';
-        tab[x][y+1] = ' ';
-        tab[x][y+2] = ' ';
     }
-    //CIMA DIREITA
-    else if (strcasecmp(sentido,"DIR")== 0 && tab[x][y] == tab[x-1][y] &&  tab[x][y] == tab[x-2][y] )
-    {
-        tab[x][y] = ' ';
-        tab[x-1][y] = ' ';
-        tab[x-2][y] = ' ';
-    }
-    //BAIXO DIREITA
-    else if (strcasecmp(sentido,"DIR")== 0 && tab[x][y] == tab[x+1][y] &&  tab[x][y] == tab[x+2][y] )
-    {
-        tab[x][y] = ' ';
-        tab[x+1][y] = ' ';
-        tab[x+2][y] = ' ';
-    }
-    //1 EM CIMA e 1 EMBAIXO
-    else if (strcasecmp(sentido,"DIR")== 0 && tab[x][y] == tab[x+1][y] &&  tab[x][y] == tab[x-1][y] )
-    {
-        tab[x][y] = ' ';
-        tab[x+1][y] = ' ';
-        tab[x-1][y] = ' ';
-    }
-//FIM DIREITA
-
-
+return 0;
 }
 
+/*
+
+(P)(P)(P)(P)(P)
+ 1  2  3  4  5
+
+ 2345
+ 1234
+
+ 234
+ 345
+ 123
+
+*/
 
