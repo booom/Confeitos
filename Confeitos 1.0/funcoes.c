@@ -22,9 +22,8 @@ int criavetor (void)
     return 0;
 }
 //LÊ AS COORDENADAS E RETORNA O VALOR INTEIRO DE SCAN
-int verifica ()
+int verifica (void)
 {
-    getchar();
     printf("\nDigite as coordenadas e o sentido para mover a peca. Ex: 8,0, DIR \n");
     scan = scanf("%d, %d, %s", &x,&y, sentido);
     return scan;
@@ -35,7 +34,10 @@ int leitura (void)
     scan = verifica();
     //PARÂMETROS PARA SER VÁLIDO
     if(scan!=3 || x<=0 || y<=0)
+    {
+        __fpurge(stdin);
         msg(1);
+    }
     else
     {
         mover(x, y, sentido);
@@ -91,10 +93,11 @@ int mover(int x, int y, char sentido[6])
             msg(1);
         else
         {
-            //jogada(x,y+1);
+
             confeito = tab[x][y+1];
             tab[x][y+1] = tab[x][y];
             tab[x][y] = confeito;
+            jogada(x, y+1, sentido);
             msg(0);
         }
     }
@@ -104,10 +107,11 @@ int mover(int x, int y, char sentido[6])
             msg(1);
         else
         {
-            //jogada(x,y-1);
+
             confeito = tab[x][y-1];
             tab[x][y-1] = tab[x][y];
             tab[x][y] = confeito;
+            jogada(x,y-1, sentido);
             msg(0);
         }
     }
@@ -117,10 +121,11 @@ int mover(int x, int y, char sentido[6])
             msg(1);
         else
         {
-            //jogada(x-1,y);
+
             confeito = tab[x-1][y];
             tab[x-1][y] = tab[x][y];
             tab[x][y] = confeito;
+            jogada(x-1, y, sentido);
             msg(0);
         }
     }
@@ -130,10 +135,11 @@ int mover(int x, int y, char sentido[6])
             msg(1);
         else
         {
-            //jogada(x+1,y);
+
             confeito = tab[x+1][y];
             tab[x+1][y] = tab[x][y];
             tab[x][y] = confeito;
+            jogada(x+1, y, sentido);
             msg(0);
         }
     }
@@ -181,13 +187,13 @@ int menu(void)
 {
     int opcao;
     char nome[30];
-    printf("*************************   Confeitos v1.0   ******************************\n");
+    printf("*****************************   Confeitos v1.0   ******************************\n");
     printf("\n\n");
     printf("             Seja bem vindo a cidade dos doces! Qual seu nome?\n\n");
-    scanf("%[A-Z a-z]",&nome);
+    scanf("%[A-Z a-z 0-9]",nome);
     getchar();
     CLEAR;
-    printf("*************************   Confeitos v1.0   ******************************\n");
+    printf("*****************************   Confeitos v1.0   ******************************\n");
     printf("\n\n");
     printf("               Ola %s! Esta pronto para uma doce aventura?\n\n                          Digite a opcao desejada:\n",nome);
     printf("\n\n");
@@ -195,7 +201,24 @@ int menu(void)
     printf("                            2 - Pontuacoes.\n");
     printf("                            3 - Fechar o programa.\n");
     scanf("%i",&opcao);
-    if (opcao==3)
+    if (opcao==1)
+    {
+        //CRIA UMA MATRIZ ALEATÓRIA
+        criavetor();
+//VERIFICACAO DAS TRIPLAS PARA NEUTRALIZÃO DO TABULEIRO
+        verificatripla();
+//CRIA AS COORDENADAS LATERAIS DO TABULEIRO
+        lc();
+        printf("*************************   Confeitos v1.0   ******************************\n");
+        getchar();
+        //IMPRESSÃO DA MATRIZ
+        imprimevetor();
+//LEITURA DAS COORDENADAS
+        leitura();
+    }
+//   else if (opcao==2)
+//        tabelapontos();
+    else if (opcao==3)
     {
         CLEAR;
         printf("*************************   Confeitos v1.0   ******************************\n");
@@ -205,47 +228,76 @@ int menu(void)
         printf("-------------------------- FECHANDO PROGRAMA... ---------------------------\n");
         exit(0);
     }
-    else if (opcao>3)
+    else if (opcao>3 || opcao<1)
     {
         printf("*****************  OPCAO INVALIDA! TENTE NOVAMENTE!  *********************");
         return 0;
     }
     CLEAR;
-    fflush(stdin);
+    __fpurge(stdin);
     return 0;
 }
 //VERIFICA PEÇAS TRIPLAS NO INÍCIO DO JOGO
 int verificatripla()
 {
-    verificamat();
-    CLEAR
-    return 0;
-
-}
-int verificamat()
-{
     for (i=1; i<10; i++)
     {
         for (j=1; j<8; j++)
         {
+
             if (tab[i][j]==tab[i][j+2])
             {
                 do
                 {
                     r = rand() % 6;
                     tab[i][j+2] = doce[r];
-
-
                 }
-                while(tab[i][j+2] == tab[i][j+1] || tab[i][j+2] == tab[i][j+3] || tab[i][j+2] == tab[i+1][j+2]);
+                while(tab[i][j+2] == tab[i][j]);
 
-                }
+            }
 
         }
     }
+    CLEAR
+    return 0;
 
 }
 
+//VERIFICA A JOGADA
+int jogada(int x, int y, char sentido[6])
+{
 
+//DIREITA1
+    if (strcasecmp(sentido,"DIR")== 0 && tab[x][y] == tab[x][y+1] &&  tab[x][y] == tab[x][y+2])
+    {
+        tab[x][y] = ' ';
+        tab[x][y+1] = ' ';
+        tab[x][y+2] = ' ';
+    }
+    //CIMA DIREITA
+    else if (strcasecmp(sentido,"DIR")== 0 && tab[x][y] == tab[x-1][y] &&  tab[x][y] == tab[x-2][y] )
+    {
+        tab[x][y] = ' ';
+        tab[x-1][y] = ' ';
+        tab[x-2][y] = ' ';
+    }
+    //BAIXO DIREITA
+    else if (strcasecmp(sentido,"DIR")== 0 && tab[x][y] == tab[x+1][y] &&  tab[x][y] == tab[x+2][y] )
+    {
+        tab[x][y] = ' ';
+        tab[x+1][y] = ' ';
+        tab[x+2][y] = ' ';
+    }
+    //1 EM CIMA e 1 EMBAIXO
+    else if (strcasecmp(sentido,"DIR")== 0 && tab[x][y] == tab[x+1][y] &&  tab[x][y] == tab[x-1][y] )
+    {
+        tab[x][y] = ' ';
+        tab[x+1][y] = ' ';
+        tab[x-1][y] = ' ';
+    }
+//FIM DIREITA
+
+
+}
 
 

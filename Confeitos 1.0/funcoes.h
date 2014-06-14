@@ -21,6 +21,7 @@ int mover();
 int imprimevetor();
 int jogada();
 int verificatripla();
+int tabelapontos();
 
 
 
