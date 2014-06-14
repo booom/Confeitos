@@ -1,12 +1,12 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "funcoes.h"
+int vl1, vl2, vc1, vc2;
 //VETOR COM AS LETRAS DOS "DOCES"
 char doce[7]=
 {
-    'B', 'G', 'R', 'Y', 'O', 'P'
+    'B', 'G', 'R', 'Y', 'W', 'P'
 };
-char criavetor (void)
+//CRIA O VETOR
+int criavetor (void)
 {
 //RANDOMIZAÇÃO DA MATRIZ
     srand(time(NULL)); //Seed com segundos desde 1 Jan 1970, OU SEJA, OS NÚMEROS "NUNCA" TERÃO A MESMA SEQUENCIA. GERA NUMEROS ALEATORIOS
@@ -15,8 +15,8 @@ char criavetor (void)
     {
         for (j=1; j<=P; j++)
         {
-            r = rand() % 6;
-            tab[i][j]= doce[r];
+            r = rand() %6;
+            tab[i][j] = doce[r];
         }
     }
     return 0;
@@ -30,7 +30,7 @@ int verifica ()
     return scan;
 }
 //LÊ AS COORDENADAS E VERIFICA SE É VALIDO
-int leitura ()
+int leitura (void)
 {
     scan = verifica();
     //PARÂMETROS PARA SER VÁLIDO
@@ -38,12 +38,11 @@ int leitura ()
         msg(1);
     else
     {
-     mover(x, y, sentido);
+        mover(x, y, sentido);
     }
 
     return 0;
 }
-
 //ESCREVE AS COORDENADAS AO REDOR DO VETOR
 int lc(void)
 {
@@ -63,61 +62,79 @@ int imprimevetor(void)
     {
         for(j=0; j<P; j++)
         {
-            printf("[%c] ",tab[i][j]);
+            if (tab[i][j]== 'B')
+                printf("\033[1;36m");
+            else if (tab[i][j]== 'G')
+                printf("\033[1;32m");
+            else if (tab[i][j]== 'Y')
+                printf("\033[1;33m");
+            else if (tab[i][j]== 'R')
+                printf("\033[1;31m");
+            else if (tab[i][j]=='P')
+                printf("\033[1;35m");
+            else if (tab[i][j]=='W')
+                printf("\033[1;37m");
+
+            printf("(%c) ",tab[i][j]);
+            printf("\033[1;0m");
         }
         printf("\n\n");
     }
     return 0;
 }
-
+//MOVE A PEÇA (OU NÃO)
 int mover(int x, int y, char sentido[6])
 {
-    if (strcmpi(sentido, "dir")== 0)
+    if (strcasecmp(sentido, "dir")== 0)
     {
         if ((y+1)>9)
             msg(1);
         else
         {
-            jogada(x,y+1);
+            //jogada(x,y+1);
             confeito = tab[x][y+1];
             tab[x][y+1] = tab[x][y];
             tab[x][y] = confeito;
+            msg(0);
         }
     }
-    else if (strcmpi(sentido, "esq")== 0)
+    else if (strcasecmp(sentido, "esq")== 0)
     {
         if (y-1<1)
             msg(1);
         else
         {
-            jogada(x,y-1);
+            //jogada(x,y-1);
             confeito = tab[x][y-1];
             tab[x][y-1] = tab[x][y];
             tab[x][y] = confeito;
+            msg(0);
         }
     }
-    else if (strcmpi(sentido, "cima")== 0)
+    else if (strcasecmp(sentido, "cima")== 0)
     {
         if (x-1<1)
             msg(1);
         else
         {
-            jogada(x-1,y);
+            //jogada(x-1,y);
             confeito = tab[x-1][y];
             tab[x-1][y] = tab[x][y];
             tab[x][y] = confeito;
+            msg(0);
         }
     }
-    else if (strcmpi(sentido, "baixo")== 0)
+    else if (strcasecmp(sentido, "baixo")== 0)
     {
         if (x+1>9)
             msg(1);
         else
         {
-            jogada(x+1,y);
+            //jogada(x+1,y);
             confeito = tab[x+1][y];
             tab[x+1][y] = tab[x][y];
             tab[x][y] = confeito;
+            msg(0);
         }
     }
     else
@@ -125,16 +142,15 @@ int mover(int x, int y, char sentido[6])
 
     return 0;
 }
+//RETORNA UMA MENSAGEM ACIMA DO TABULEIRO
 int msg(int m)
 {
     if (m==1)
     {
-        {
-            CLEAR
-            printf("************ MOVIMENTO INVALIDO! TENTE NOVAMENTE: ************\n");
-            imprimevetor();
-            leitura();
-        }
+        CLEAR
+        printf("************ MOVIMENTO INVALIDO! TENTE NOVAMENTE: ************\n");
+        imprimevetor();
+        leitura();
     }
     else if (m==0)
     {
@@ -150,16 +166,86 @@ int msg(int m)
         imprimevetor();
         leitura();
     }
+    else if (m==4)
+    {
+        CLEAR
+        printf("****************** SWEET! **************\n");
+        imprimevetor();
+        leitura();
+    }
     return 0;
 
 }
-int jogada(int x, int y)
+//MENU DO JOGO
+int menu(void)
+{
+    int opcao;
+    char nome[30];
+    printf("*************************   Confeitos v1.0   ******************************\n");
+    printf("\n\n");
+    printf("             Seja bem vindo a cidade dos doces! Qual seu nome?\n\n");
+    scanf("%[A-Z a-z]",&nome);
+    getchar();
+    CLEAR;
+    printf("*************************   Confeitos v1.0   ******************************\n");
+    printf("\n\n");
+    printf("               Ola %s! Esta pronto para uma doce aventura?\n\n                          Digite a opcao desejada:\n",nome);
+    printf("\n\n");
+    printf("                            1 - Jogar. \n");
+    printf("                            2 - Pontuacoes.\n");
+    printf("                            3 - Fechar o programa.\n");
+    scanf("%i",&opcao);
+    if (opcao==3)
     {
-        confeito = tab[x][y];
-        if (x==1) // PRIMEIRA LINHA
-        {
-            if(y>1 && y<9) //PODE VERIFICAR DIREITA, ESQUERDA, BAIXO
-                tab;
-        }
-        tab[x][y];
+        CLEAR;
+        printf("*************************   Confeitos v1.0   ******************************\n");
+        printf("\n\n\n\n\n\n\n\n\n\n\n");
+        printf("      Voce esta deixando nossa cidade, ate a proxima aventura %s!\n\n",nome);
+        printf("\n\n\n\n\n\n\n\n");
+        printf("-------------------------- FECHANDO PROGRAMA... ---------------------------\n");
+        exit(0);
     }
+    else if (opcao>3)
+    {
+        printf("*****************  OPCAO INVALIDA! TENTE NOVAMENTE!  *********************");
+        return 0;
+    }
+    CLEAR;
+    fflush(stdin);
+    return 0;
+}
+//VERIFICA PEÇAS TRIPLAS NO INÍCIO DO JOGO
+int verificatripla()
+{
+    verificamat();
+    CLEAR
+    return 0;
+
+}
+int verificamat()
+{
+    for (i=1; i<10; i++)
+    {
+        for (j=1; j<8; j++)
+        {
+            if (tab[i][j]==tab[i][j+2])
+            {
+                do
+                {
+                    r = rand() % 6;
+                    tab[i][j+2] = doce[r];
+
+
+                }
+                while(tab[i][j+2] == tab[i][j+1] || tab[i][j+2] == tab[i][j+3] || tab[i][j+2] == tab[i+1][j+2]);
+
+                }
+
+        }
+    }
+
+}
+
+
+
+

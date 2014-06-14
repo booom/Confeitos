@@ -5,6 +5,8 @@
 	<conio.h>
 	"funcoes.h"
 
+1402317170 "
+
 1402262056 source:c:\users\radzki\documents\confeitos\confeitos 1.0\funcoes.c
 	<stdio.h>
 	<stdlib.h>
@@ -15,6 +17,8 @@
 	<math.h>
 	<string.h>
 	<ctype.h>
+
+1401980860 
 
 1401935626 c:\users\radzki\documents\confeitos\confeitos 1.0\funcoes.c
 	<stdio.h>
@@ -35,5 +39,89 @@
 1401981013 source:z:\confeitos\confeitos 1.0\funcoes.c
 	<stdio.h>
 	<stdlib.h>
+	"funcoes.h"
+
+1402317170 source:h:\confeitos\confeitos 1.0\main.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	"funcoes.h"
+
+1402317170 h:\confeitos\confeitos 1.0\include\funcoes.h
+	<time.h>
+	<math.h>
+	<string.h>
+	<ctype.h>
+
+1402317398 source:h:\confeitos\confeitos 1.0\funcoes.c
+	<stdio.h>
+	<stdlib.h>
+	"funcoes.h"
+
+1402317398 source:h:\confeitos\confeitos 1.0.2\funcoes.c
+	<stdio.h>
+	<stdlib.h>
+	"funcoes.h"
+
+1402317170 h:\confeitos\confeitos 1.0.2\include\funcoes.h
+	<time.h>
+	<math.h>
+	<string.h>
+	<ctype.h>
+
+1402317170 source:h:\confeitos\confeitos 1.0.2\main.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	"funcoes.h"
+
+1402502178 source:/home/PORTOALEGRE/14104101/DriveH/Confeitos/Confeitos 1.0.2/funcoes.c
+	"funcoes.h"
+
+1402322955 /home/PORTOALEGRE/14104101/DriveH/Confeitos/Confeitos 1.0.2/include/funcoes.h
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<math.h>
+	<string.h>
+	<ctype.h>
+
+1402495003 source:/home/PORTOALEGRE/14104101/DriveH/Confeitos/Confeitos 1.0.2/main.c
+	"funcoes.h"
+
+1402497157 /home/PORTOALEGRE/14104101/DriveH/Confeitos/Confeitos 1.0.2/funcoes.h
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<math.h>
+	<string.h>
+	<ctype.h>
+
+1402710446 source:/media/sf_Documents/Confeitos/Confeitos/funcoes.c
+	"funcoes.h"
+
+1402497158 /media/sf_Documents/Confeitos/Confeitos/funcoes.h
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<math.h>
+	<string.h>
+	<ctype.h>
+
+1402495004 source:/media/sf_Documents/Confeitos/Confeitos/main.c
+	"funcoes.h"
+
+1402710446 source:/home/radzki/Área de Trabalho/Confeitos/Confeitos/funcoes.c
+	"funcoes.h"
+
+1402708097 /home/radzki/Área de Trabalho/Confeitos/Confeitos/funcoes.h
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<math.h>
+	<string.h>
+	<ctype.h>
+
+1402495004 source:/home/radzki/Área de Trabalho/Confeitos/Confeitos/main.c
 	"funcoes.h"
 
