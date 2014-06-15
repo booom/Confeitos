@@ -1,5 +1,4 @@
 #include "funcoes.h"
-int vl1, vl2, vc1, vc2;
 //VETOR COM AS LETRAS DOS "DOCES"
 char doce[7]=
 {
@@ -24,7 +23,7 @@ int criavetor (void)
 //LÊ AS COORDENADAS E RETORNA O VALOR INTEIRO DE SCAN
 int verifica (void)
 {
-    printf("\nDigite as coordenadas e o sentido para mover a peca. Ex: 8,0, DIR \n");
+    printf("Digite as coordenadas e o sentido para mover a peca. Ex: 8,0, DIR \n");
     scan = scanf("%d, %d, %s", &x,&y, sentido);
     return scan;
 }
@@ -35,7 +34,7 @@ int leitura (void)
     //PARÂMETROS PARA SER VÁLIDO
     if(scan!=3 || x<=0 || y<=0)
     {
-        __fpurge(stdin);
+
         msg(1);
     }
     else
@@ -98,7 +97,7 @@ int mover(int x, int y, char sentido[6])
             tab[x][y+1] = tab[x][y];
             tab[x][y] = confeito;
             jogada(x, y+1, sentido);
-            msg(0);
+            gameover();
         }
     }
     else if (strcasecmp(sentido, "esq")== 0)
@@ -112,7 +111,7 @@ int mover(int x, int y, char sentido[6])
             tab[x][y-1] = tab[x][y];
             tab[x][y] = confeito;
             jogada(x,y-1, sentido);
-            msg(0);
+            gameover();
         }
     }
     else if (strcasecmp(sentido, "cima")== 0)
@@ -126,7 +125,7 @@ int mover(int x, int y, char sentido[6])
             tab[x-1][y] = tab[x][y];
             tab[x][y] = confeito;
             jogada(x-1, y, sentido);
-            msg(0);
+            gameover();
         }
     }
     else if (strcasecmp(sentido, "baixo")== 0)
@@ -140,7 +139,7 @@ int mover(int x, int y, char sentido[6])
             tab[x+1][y] = tab[x][y];
             tab[x][y] = confeito;
             jogada(x+1, y, sentido);
-            msg(0);
+            gameover();
         }
     }
     else
@@ -154,71 +153,130 @@ int msg(int m)
     if (m==1)
     {
         CLEAR
-        printf("************ MOVIMENTO INVALIDO! TENTE NOVAMENTE: ************\n");
+        printf("**** MOVIMENTO INVALIDO! TENTE DE NOVO ****  Score: %d pontos   Movimentos: %d     \n",pontos,mov);
         imprimevetor();
+        __fpurge(stdin);
         leitura();
     }
     else if (m==0)
     {
         CLEAR
-        printf("********************* PECA MOVIDA COM SUCESSO! *******************\n");
-        imprimevetor();
-        leitura();
-    }
-    else if (m==3)
-    {
-        CLEAR
-        printf("****************** ERRO DE SINTAXE, TENTE NOVAMENTE!**************\n");
+        if(match)
+            printf("****** PECA MOVIDA COM SUCESSO! *******   Score: %d pontos   Movimentos: %d     \n",pontos,mov);
+        else
+            printf("************ MULTIPLAS!!! *************   Score: %d pontos   Movimentos: %d     \n",pontos,mov);
         imprimevetor();
         leitura();
     }
     else if (m==4)
     {
         CLEAR
-        printf("****************** SWEET! **************\n");
+        printf("*******************    GAME OVER!!   *********************\n");
         imprimevetor();
-        leitura();
     }
-    return 0;
-
+return 0;
 }
 //MENU DO JOGO
 int menu(void)
 {
     int opcao;
     char nome[30];
-    printf("*****************************   Confeitos v1.0   ******************************\n");
     printf("\n\n");
-    printf("             Seja bem vindo a cidade dos doces! Qual seu nome?\n\n");
-    scanf("%[A-Z a-z 0-9]",nome);
-    getchar();
+    printf("        Seja bem vindo a cidade dos doces! Insira seu nome (sem acentos!):\n\n");
+    z = scanf("%[A-Z a-z 0-9,.]",nome);
+    if (z==0)
+    {
+        printf ("                          Por favor, insira seu nome!");
+        __fpurge(stdin);
+        CLEAR
+        menu();
+    }
     CLEAR;
     printf("*****************************   Confeitos v1.0   ******************************\n");
     printf("\n\n");
     printf("               Ola %s! Esta pronto para uma doce aventura?\n\n                          Digite a opcao desejada:\n",nome);
     printf("\n\n");
-    printf("                            1 - Jogar. \n");
-    printf("                            2 - Pontuacoes.\n");
-    printf("                            3 - Fechar o programa.\n");
+    printf("                            1 - Jogar modo Match 3 \n");
+    printf("                            2 - Jogar modo Saga\n");
+    printf("                            3 - Pontuacoes\n");
+    printf("                            4 - Instrucoes\n");
+    printf("                            5 - Fechar o programa\n");
     scanf("%i",&opcao);
     if (opcao==1)
     {
+        mov = 22;
+        CLEAR
+        match = 1;
         //CRIA UMA MATRIZ ALEATÓRIA
         criavetor();
 //VERIFICACAO DAS TRIPLAS PARA NEUTRALIZÃO DO TABULEIRO
-        verificatripla();
+        jogada(1,1,"dir");
+        pontos = 0;
+        verificatriplahor();
+
 //CRIA AS COORDENADAS LATERAIS DO TABULEIRO
         lc();
         printf("*************************   Confeitos v1.0   ******************************\n");
-        getchar();
         //IMPRESSÃO DA MATRIZ
         imprimevetor();
 //LEITURA DAS COORDENADAS
         leitura();
     }
-//   else if (opcao==2)
-//        tabelapontos();
+    else if (opcao==2)
+    {
+        mov = 20;
+        CLEAR
+        match = 0;
+        //CRIA UMA MATRIZ ALEATÓRIA
+        criavetor();
+//CRIA AS COORDENADAS LATERAIS DO TABULEIRO
+        lc();
+        printf("*************************   Confeitos v1.0   ******************************\n");
+        //IMPRESSÃO DA MATRIZ
+        imprimevetor();
+//LEITURA DAS COORDENADAS
+        leitura();
+    }
     else if (opcao==3)
+    {
+        CLEAR
+        arq = fopen("score", "r");
+        if ((aux=fgetc(arq))==EOF)
+        {
+            printf ("Nao existem pontuacoes ainda!\n");
+            printf ("Pressione ENTER para reiniciar\n");
+            __fpurge(stdin);
+            getchar();
+            CLEAR
+            menu();
+        }
+        else
+        {
+            while ((aux=fgetc(arq))!= EOF)
+                putchar (aux);
+        }
+        return 0;
+    }
+    else if (opcao==4)
+    {
+        CLEAR
+        arq = fopen("instructions", "r");
+        if ((aux=fgetc(arq))==EOF)
+        {
+            printf ("Pressione ENTER para reiniciar\n");
+            __fpurge(stdin);
+            getchar();
+            CLEAR
+            menu();
+        }
+        else
+        {
+            while ((aux=fgetc(arq))!= EOF)
+                putchar (aux);
+        }
+        return 0;
+    }
+    else if (opcao==5)
     {
         CLEAR;
         printf("*************************   Confeitos v1.0   ******************************\n");
@@ -228,7 +286,7 @@ int menu(void)
         printf("-------------------------- FECHANDO PROGRAMA... ---------------------------\n");
         exit(0);
     }
-    else if (opcao>3 || opcao<1)
+    else if (opcao>5 || opcao<1)
     {
         printf("*****************  OPCAO INVALIDA! TENTE NOVAMENTE!  *********************");
         return 0;
@@ -237,8 +295,108 @@ int menu(void)
     __fpurge(stdin);
     return 0;
 }
-//VERIFICA PEÇAS TRIPLAS NO INÍCIO DO JOGO
-int verificatripla()
+//VERIFICA A JOGADA
+int jogada(int x, int y, char sentido[6])
+{
+    if ((tab[x][y] == tab[x][y-2] && tab[x][y] == tab[x][y-1]) || (tab[x][y+2] && tab[x][y] == tab[x][y+1]) || (tab[x][y] == tab[x+2][y] && tab[x][y] == tab[x+1][y])|| (tab[x][y] == tab[x-2][y] && tab[x][y] == tab[x-1][y]) || (tab[x][y] == tab[x-1][y] && tab[x][y] == tab[x+1][y]) )
+    {
+        i = y;
+        while (tab[x][y] == tab[x][i+1])
+        {
+            tab[x][i+1] = ' ';
+            i++;
+        }
+        i = y;
+        while (tab[x][y] == tab[x][i-1])
+        {
+            tab[x][i-1] = ' ';
+            i--;
+        }
+        i = x;
+        while (tab[x][y] == tab[i+1][y])
+        {
+            tab[i+1][y] = ' ';
+            i++;
+        }
+        i = x;
+        while (tab[x][y] == tab[i-1][y])
+        {
+            tab[i-1][y] = ' ';
+            i--;
+        }
+        tab[x][y] = ' ';
+    }
+    mov-=1;
+    contagem();
+    desce();
+    return 0;
+}
+//REMOVE AS DEMAIS PECAS ADJACENTES (FORA DA JOGADA)  DO TABULEIRO
+int desce(void)
+{
+    int desceu =0;
+    for (i=9; i>=1; i--)
+    {
+        for(j=1; j<10; j++)
+        {
+            if(tab[i][j]==' ')
+            {
+                if(i == 1)
+                {
+                    r = rand() % 6;
+                    tab[i][j] = doce[r];
+                }
+                else
+                {
+                    desceu = 1;
+                    tab[i][j] = tab[i-1][j];
+                    tab[i-1][j] = ' ';
+                }
+            }
+        }
+    }
+    if (desceu)
+        desce();
+
+    verificatriplahor();
+    verificatriplaver();
+    return 0;
+}
+//VERIFICA AS TRIPLAS VERTICAIS
+int verificatriplaver(void)
+{
+    for (j=1; j<10; j++)
+    {
+        for (i=1; i<8; i++)
+        {
+
+            if (tab[i][j]==tab[i+2][j])
+            {
+                do
+                {
+                    if (match)
+                    {
+                        r = rand() % 6;
+                        tab[i+2][j] = doce[r];
+                    }
+                    else
+                    {
+                        tab[i+2][j] = ' ';
+                        contagem();
+                        desce();
+                    }
+
+                }
+                while(tab[i+2][j] == tab[i][j]);
+            }
+        }
+    }
+    CLEAR
+    return 0;
+
+}
+//VERIFICA PEÇAS TRIPLAS HORIZONTAIS NO INÍCIO DO JOGO
+int verificatriplahor(void)
 {
     for (i=1; i<10; i++)
     {
@@ -249,65 +407,49 @@ int verificatripla()
             {
                 do
                 {
-                    r = rand() % 6;
-                    tab[i][j+2] = doce[r];
+                    if (match)
+                    {
+                        r = rand() % 6;
+                        tab[i][j+2] = doce[r];
+                    }
+                    else
+                    {
+                        tab[i][j+2] = ' ';
+                        contagem();
+                        desce();
+                    }
                 }
                 while(tab[i][j+2] == tab[i][j]);
-
             }
-
         }
     }
     CLEAR
     return 0;
 
 }
-
-//VERIFICA A JOGADA
-int jogada(int x, int y, char sentido[6])
+//CONTA O NÚMERO DE ESPAÇOS E ADICIONA UM PONTO PARA CADA ESPAÇO
+int contagem(void)
 {
-    if (tab[x][y] == tab[x][y-2] && tab[x][y] == tab[x][y-1] || tab[x][y+2] && tab[x][y] == tab[x][y+1] || tab[x][y] == tab[x+2][y] && tab[x][y] == tab[x+1][y] || tab[x][y] == tab[x-2][y] && tab[x][y] == tab[x-1][y] || tab[x][y] == tab[x-1][y] && tab[x][y] == tab[x+1][y] )
+    for (i=1; i<=O; i++)
     {
-        i = y;
-        while (tab[x][y] == tab[x][i+1])
+        for (j=1; j<=P; j++)
         {
-        tab[x][i+1] = ' ';
-        i++;
+            if (tab[i][j]== ' ')
+                pontos+=1;
         }
-        i = y;
-        while (tab[x][y] == tab[x][i-1])
-        {
-        tab[x][i-1] = ' ';
-        i--;
-        }
-        i = x;
-        while (tab[x][y] == tab[i+1][y])
-        {
-        tab[i+1][y] = ' ';
-        i++;
-        }
-        i = x;
-        while (tab[x][y] == tab[i-1][y])
-        {
-        tab[i-1][y] = ' ';
-        i--;
-        }
-        tab[x][y] = ' ';
+
     }
-return 0;
+    return 0;
+}
+//FIM DO JOGO
+int gameover(void)
+{
+    if (mov==0)
+        msg(4);
+    else
+        msg(0);
+    return 0;
+
 }
 
-/*
-
-(P)(P)(P)(P)(P)
- 1  2  3  4  5
-
- 2345
- 1234
-
- 234
- 345
- 123
-
-*/
 
