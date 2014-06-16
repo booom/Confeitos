@@ -7,8 +7,8 @@ char doce[7]=
 //CRIA O VETOR
 int criavetor (void)
 {
-//RANDOMIZAÇÃO DA MATRIZ
-    srand(time(NULL)); //Seed com segundos desde 1 Jan 1970, OU SEJA, OS NÚMEROS "NUNCA" TERÃO A MESMA SEQUENCIA. GERA NUMEROS ALEATORIOS
+//RANDOMIZAï¿½ï¿½O DA MATRIZ
+    srand(time(NULL)); //Seed com segundos desde 1 Jan 1970, OU SEJA, OS Nï¿½MEROS "NUNCA" TERï¿½O A MESMA SEQUENCIA. GERA NUMEROS ALEATORIOS
 //PEGA AS LETRAS DO VETOR DE DOCES
     for (i=1; i<=O; i++)
     {
@@ -20,18 +20,18 @@ int criavetor (void)
     }
     return 0;
 }
-//LÊ AS COORDENADAS E RETORNA O VALOR INTEIRO DE SCAN
+//Lï¿½ AS COORDENADAS E RETORNA O VALOR INTEIRO DE SCAN
 int verifica (void)
 {
     printf("Digite as coordenadas e o sentido para mover a peca. Ex: 8,0, DIR \n");
     scan = scanf("%d, %d, %s", &x,&y, sentido);
     return scan;
 }
-//LÊ AS COORDENADAS E VERIFICA SE É VALIDO
+//Lï¿½ AS COORDENADAS E VERIFICA SE ï¿½ VALIDO
 int leitura (void)
 {
     scan = verifica();
-    //PARÂMETROS PARA SER VÁLIDO
+    //PARï¿½METROS PARA SER Vï¿½LIDO
     if(scan!=3 || x<=0 || y<=0)
     {
 
@@ -83,7 +83,7 @@ int imprimevetor(void)
     }
     return 0;
 }
-//MOVE A PEÇA (OU NÃO)
+//MOVE A PEï¿½A (OU Nï¿½O)
 int mover(int x, int y, char sentido[6])
 {
     if (strcasecmp(sentido, "dir")== 0)
@@ -207,9 +207,9 @@ int menu(void)
         mov = 22;
         CLEAR
         match = 1;
-        //CRIA UMA MATRIZ ALEATÓRIA
+        //CRIA UMA MATRIZ ALEATï¿½RIA
         criavetor();
-//VERIFICACAO DAS TRIPLAS PARA NEUTRALIZÃO DO TABULEIRO
+//VERIFICACAO DAS TRIPLAS PARA NEUTRALIZï¿½O DO TABULEIRO
         jogada(1,1,"dir");
         pontos = 0;
         verificatriplahor();
@@ -217,7 +217,7 @@ int menu(void)
 //CRIA AS COORDENADAS LATERAIS DO TABULEIRO
         lc();
         printf("*************************   Confeitos v1.0   ******************************\n");
-        //IMPRESSÃO DA MATRIZ
+        //IMPRESSï¿½O DA MATRIZ
         imprimevetor();
 //LEITURA DAS COORDENADAS
         leitura();
@@ -227,12 +227,12 @@ int menu(void)
         mov = 20;
         CLEAR
         match = 0;
-        //CRIA UMA MATRIZ ALEATÓRIA
+        //CRIA UMA MATRIZ ALEATï¿½RIA
         criavetor();
 //CRIA AS COORDENADAS LATERAIS DO TABULEIRO
         lc();
         printf("*************************   Confeitos v1.0   ******************************\n");
-        //IMPRESSÃO DA MATRIZ
+        //IMPRESSï¿½O DA MATRIZ
         imprimevetor();
 //LEITURA DAS COORDENADAS
         leitura();
@@ -241,9 +241,6 @@ int menu(void)
     {
         CLEAR
         learquivo();
-            printf("%d\n", score[1]);
-            printf("%s\n", names[1]);
-
         getchar();
         menu();
         return 0;
@@ -386,7 +383,7 @@ int verificatriplaver(void)
     return 0;
 
 }
-//VERIFICA PEÇAS TRIPLAS HORIZONTAIS NO INÍCIO DO JOGO
+//VERIFICA PEï¿½AS TRIPLAS HORIZONTAIS NO INï¿½CIO DO JOGO
 int verificatriplahor(void)
 {
     for (i=1; i<10; i++)
@@ -418,7 +415,7 @@ int verificatriplahor(void)
     return 0;
 
 }
-//CONTA O NÚMERO DE ESPAÇOS E ADICIONA UM PONTO PARA CADA ESPAÇO
+//CONTA O Nï¿½MERO DE ESPAï¿½OS E ADICIONA UM PONTO PARA CADA ESPAï¿½O
 int contagem(void)
 {
     for (i=1; i<=O; i++)
