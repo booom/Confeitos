@@ -174,13 +174,13 @@ int msg(int m)
         printf("*******************    GAME OVER!!   *********************\n");
         imprimevetor();
     }
-return 0;
+    return 0;
 }
 //MENU DO JOGO
 int menu(void)
 {
     int opcao;
-    char nome[30];
+
     printf("\n\n");
     printf("        Seja bem vindo a cidade dos doces! Insira seu nome (sem acentos!):\n\n");
     z = scanf("%[A-Z a-z 0-9,.]",nome);
@@ -240,21 +240,12 @@ int menu(void)
     else if (opcao==3)
     {
         CLEAR
-        arq = fopen("score", "r");
-        if ((aux=fgetc(arq))==EOF)
-        {
-            printf ("Nao existem pontuacoes ainda!\n");
-            printf ("Pressione ENTER para reiniciar\n");
-            __fpurge(stdin);
-            getchar();
-            CLEAR
-            menu();
-        }
-        else
-        {
-            while ((aux=fgetc(arq))!= EOF)
-                putchar (aux);
-        }
+        learquivo();
+            printf("%d\n", score[1]);
+            printf("%s\n", names[1]);
+
+        getchar();
+        menu();
         return 0;
     }
     else if (opcao==4)
@@ -445,11 +436,78 @@ int contagem(void)
 int gameover(void)
 {
     if (mov==0)
+    {
         msg(4);
+        z = 0;
+        arq = fopen("score", "w");
+
+        if (pontos>score[z])
+        {
+            score[z] = pontos;
+            names[z] = nome;
+        }
+        else if (pontos>score[z+1])
+        {
+            score[z+1] = pontos;
+            names[z+1] = nome;
+        }
+        else if (pontos>score[z+2])
+        {
+            score[z+2] = pontos;
+            names[z+2] = nome;
+        }
+        else if (pontos>score[z+3])
+        {
+            score[z+3] = pontos;
+            names[z+3] = nome;
+        }
+        else if (pontos>score[z+4])
+        {
+            score[z+4] = pontos;
+            names[z+4] = nome;
+        }
+
+        for(z=0; z>=6; z++)
+        {
+
+            fprintf(arq,"%s",names[z]);
+            fprintf(arq,"%d\n", score[z]);
+        }
+
+
+        fclose(arq);
+
+    }
+
     else
         msg(0);
     return 0;
 
 }
 
+int learquivo(void)
+{
+    z = 0;
+    s = 0;
+    cont = 0;
+    arq = fopen("score", "r");
+    while (fgets(linha, 100, arq))
+    {
+        cont++;
+        if (cont % 2 == 0)
+        {
+            score[z] = atoi(linha);
+            printf("%d\n", score[z]);
+            z++;
+        }
+        else
+        {
+            names[s] = linha;
+            printf("%s",names[s]);
+            s++;
+        }
+    }
 
+    fclose(arq);
+    return 0;
+}

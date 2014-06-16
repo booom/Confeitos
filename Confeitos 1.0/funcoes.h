@@ -11,11 +11,13 @@
 #define P 10
 FILE *arq;
 
-char confeito, aux;
+char confeito, aux, linha[50];
 char tab[O][P];
+char nome[30];
+int score[6];
+char *names[6];
 char sentido[6];
-int i, j, r, x, y, m, z, scan, pontos, match;
-int mov;
+int i, j, r, x, y, m, z, scan, pontos, mov, match, cont, s;
 int menu();
 int jogada(int x, int y, char sentido[6]);
 int mover(int x, int y, char sentido[6]);
@@ -29,5 +31,6 @@ int leitura (void);
 int lc(void);
 int imprimevetor(void);
 int msg(int m);
-int gameover();
+int gameover(void);
+int learquivo(void);
 

@@ -1,0 +1,21 @@
+ O jogo é simples, você deve digitar a coordenada da peça 
+que você deseja mover e sua respectiva direção.
+
+Por exemplo:
+   
+    1,2,dir
+    1,3,esq
+    5,4,baixo
+    7,5,cima
+
+Simples, não é?
+
+No modo "Match 3" você ganha um ponto por peça combinada,
+como só existe combinações de 3, você ganha 3 pontos por
+jogada correta.
+
+No modo "Saga", a cada movimento o tabuleiro é verificado.
+Caso existam outras adjacências, sem ser a que você moveu,
+elas serão removidas e lhe renderão mais pontos.
+
+Bom jogo!
